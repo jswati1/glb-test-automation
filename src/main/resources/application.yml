@@ -1,0 +1,8 @@
+name: glb-automation
+modules: 
+  - RATE
+  - LESSEE
+  - LOGIN
+credentials: 
+  - username: qa@newsquantified.com
+    password: jMTJdjNW%Qje!L4t
