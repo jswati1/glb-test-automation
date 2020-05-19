@@ -1,0 +1,39 @@
+Automation testing framework development: 
+  - Setting up the code repository for the automation test scripts.   *
+  - Defining/optimize the module level factory/processor layer to main selenium specific scripts. * (partially done) * 
+  - Implement the automation application level configurations to be prameterized and configurable through property files. 
+  - Implementing logging. 
+  - Implement the reporting feature for test suites. * (partially done)  
+  - Implement the parallel execution of test cases.     
+  - Explore the ways to capture performance issues using automation test cases.  
+  - Define the configurations for running specific test suites. 
+  - create build and deployment scripts. 
+  - Define the process to encrypt the necessary sensitive inputs such as site credentials.
+  
+Automation scripts for GLB web site development: 
+  - Login Module processor implementation.  * (done)
+  - Rating module processor implementation. * (partially done) *
+  - Lessee Module processor implementation. *
+  - Vendor module processor implementation. 
+  - Investor Module processor implementation. 
+  - Reports module processor implementation. 
+  - State Module processor implementation. 
+  - Utilities module processor implementation. 
+
+
+Automation Test cases development: 
+ - Implement the Login module test cases.  * (done)
+ - Implement the Rate module test cases.   * (done)
+ - Implement the Lessee module test cases. *
+ - Implement the Vendor module test cases. 
+ - Implement the Investor module test cases. 
+ - Implement the Reports module test cases. 
+ - Implement the State module test cases. 
+ - Implement the Utilities module test cases. 
+ - Implement the necessary test cases 
+
+
+
+
+
+
