@@ -24,7 +24,7 @@ Automation scripts for GLB web site development:
 Automation Test cases development: 
  - Implement the Login module test cases.  * (done)
  - Implement the Rate module test cases.   * (done)
- - Implement the Lessee module test cases. *
+ - Implement the Lessee module test cases. * (done)
  - Implement the Vendor module test cases. 
  - Implement the Investor module test cases. 
  - Implement the Reports module test cases. 

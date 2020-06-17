@@ -21,18 +21,21 @@ import org.openqa.selenium.firefox.GeckoDriverService;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.io.TemporaryFilesystem;
 import org.openqa.selenium.remote.UnreachableBrowserException;
-import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.nq.glb.automation.model.DriverType;
 import com.nq.glb.automation.model.web.SiteElement;
 
 public class SeleniumUtil {
 
+	private static final Logger logger = LoggerFactory.getLogger(SeleniumUtil.class);
 	// private static final String CHROME_PROFILE_DIR = "C:/chrome/test";
 
 	public static WebDriver getDriver(DriverType driverType) {
+		logger.debug("Initialize the web driver for driver type {}", driverType);
 		WebDriver driver = null;
 		try {
 			switch (driverType) {
@@ -42,7 +45,7 @@ public class SeleniumUtil {
 				final ChromeOptions chromeOptions = new ChromeOptions();
 				chromeOptions.addArguments("--no-sandbox");
 				chromeOptions.addArguments("enable-automation");
-				// chromeOptions.addArguments("--headless");
+			//	 chromeOptions.addArguments("--headless");
 				chromeOptions.addArguments("--window-size=1920,1080");
 				chromeOptions.addArguments("--disable-extensions");
 				chromeOptions.addArguments("--dns-prefetch-disable");
@@ -117,12 +120,12 @@ public class SeleniumUtil {
 			}
 
 		} catch (final UnreachableBrowserException ex) {
-			ex.printStackTrace();
-			System.out.println("UnreachableBrowserException :" + ex.getMessage());
+			logger.error("UnreachableBrowserException :{}", ex);
 		} catch (final Exception ex) {
-			ex.printStackTrace();
-			System.out.println("Exception while initializing :" + ex.getMessage());
+			logger.error("Exception while initializing :{}", ex);
 		}
+
+		logger.debug("driver is initialized {}", (driver != null));
 		System.out.println(driver);
 		driver.manage().window().maximize();
 		return driver;
