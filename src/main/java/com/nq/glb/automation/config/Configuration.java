@@ -2,6 +2,10 @@ package com.nq.glb.automation.config;
 
 import java.util.List;
 
+/**
+ * @author jswati
+ *
+ */
 public class Configuration {
 
 	String name;

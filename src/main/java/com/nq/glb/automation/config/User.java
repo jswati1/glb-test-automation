@@ -1,5 +1,9 @@
 package com.nq.glb.automation.config;
 
+/**
+ * @author jswati
+ *
+ */
 public class User {
 	private String username;
 	private String password;
