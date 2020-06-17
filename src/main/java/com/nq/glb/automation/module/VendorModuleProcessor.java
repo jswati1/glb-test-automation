@@ -5,6 +5,8 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.nq.glb.automation.model.Contract;
 import com.nq.glb.automation.model.SiteDetail;
@@ -20,8 +22,10 @@ import com.nq.glb.automation.utils.SeleniumUtil;
  * @author jswati
  *
  */
- 
+
 public class VendorModuleProcessor extends BaseModuleProcessor<VendorDetail> {
+
+	private static final Logger logger = LoggerFactory.getLogger(LesseeModuleProcessor.class);
 
 	public VendorModuleProcessor(WebDriver driver) {
 		super(driver);
@@ -39,9 +43,8 @@ public class VendorModuleProcessor extends BaseModuleProcessor<VendorDetail> {
 
 	@Override
 	public void navigate() {
-		// System.out.println("navigate to lessee module");
-		// this.driver.findElement(By.linkText("LESSEE")).click();
-		this.driver.findElement(By.xpath("/html/body/header/div[2]/nav/ul/li[2]/a")).click();
+		this.driver.findElement(By.xpath("/html/body/header/div[2]/nav/ul/li[4]/a")).click();
+		// this.driver.findElement(By.xpath("/html/body/header/div[2]/nav/ul/li[contains(.,'Vendor')]/a")).click();
 	}
 
 	@Override
@@ -53,12 +56,21 @@ public class VendorModuleProcessor extends BaseModuleProcessor<VendorDetail> {
 	public void exit() {
 		driver.close();
 	}
-
+	
 	@Override
 	public VendorDetail process(Contract contract, WebElement moduleContainer) {
 		return this.process(contract.getVendorId(), moduleContainer);
 	}
 
+	/*
+	 * This method loads the Vendor module container and provides the
+	 * VendorDetail instance having all the sub section xpath and section
+	 * container element.
+	 * 
+	 * @see
+	 * com.nq.glb.automation.module.ModuleProcessor#process(java.lang.String,
+	 * org.openqa.selenium.WebElement)
+	 */
 	@Override
 	public VendorDetail process(String id, WebElement moduleContainer) {
 
@@ -70,7 +82,7 @@ public class VendorModuleProcessor extends BaseModuleProcessor<VendorDetail> {
 		vendorDetail.setSummary(new SiteElement(By.xpath("/html/body/div[3]/div[1]/div[1]/div[1]")));
 
 		Section section = new Section();
-		section.setLink(By.linkText("Vendor Info"));
+		section.setLink(By.linkText("Vendor info"));
 		section.setContent(By.xpath("/html/body/div[3]/div[1]/div[1]/div[2]/div[1]"));
 		vendorDetail.setVendorInfo(section);
 
@@ -93,15 +105,11 @@ public class VendorModuleProcessor extends BaseModuleProcessor<VendorDetail> {
 		section.setLink(By.linkText("Lessee"));
 		section.setContent(By.xpath("//*[@id='tab-5']"));
 		vendorDetail.setLessee(section);
-		
+
 		section = new Section();
 		section.setLink(By.linkText("Investor"));
 		section.setContent(By.xpath("//*[@id='tab-6']"));
 		vendorDetail.setInvestor(section);
-
-		
-
-		
 
 		return vendorDetail;
 

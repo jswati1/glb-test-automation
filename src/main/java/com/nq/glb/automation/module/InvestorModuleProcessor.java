@@ -6,19 +6,19 @@ import org.openqa.selenium.WebElement;
 
 import com.nq.glb.automation.model.Contract;
 import com.nq.glb.automation.model.SiteDetail;
-import com.nq.glb.automation.model.web.LesseeDetail;
+import com.nq.glb.automation.model.web.InvestorDetail;
 import com.nq.glb.automation.model.web.Section;
 import com.nq.glb.automation.model.web.SiteElement;
 import com.nq.glb.automation.utils.SeleniumUtil;
 
 /**
- * This Processor class is used to navigate and load the lessee module and
- * provides the methods to access section of lessee module.
+ * This Processor class is used to navigate and load the Investor module and
+ * provides the methods to access section of Investor module.
  * 
  * @author jswati
  *
  */
-public class InvestorModuleProcessor extends BaseModuleProcessor<LesseeDetail> {
+public class InvestorModuleProcessor extends BaseModuleProcessor<InvestorDetail> {
 
 	public InvestorModuleProcessor(WebDriver driver) {
 		super(driver);
@@ -36,9 +36,9 @@ public class InvestorModuleProcessor extends BaseModuleProcessor<LesseeDetail> {
 
 	@Override
 	public void navigate() {
-		// System.out.println("navigate to lessee module");
-		// this.driver.findElement(By.linkText("LESSEE")).click();
-		this.driver.findElement(By.xpath("/html/body/header/div[2]/nav/ul/li[2]/a")).click();
+		// System.out.println("navigate to Investor module");
+		// this.driver.findElement(By.linkText("INVESTOR")).click();
+		this.driver.findElement(By.xpath("/html/body/header/div[2]/nav/ul/li[5]/a")).click();
 	}
 
 	@Override
@@ -52,56 +52,62 @@ public class InvestorModuleProcessor extends BaseModuleProcessor<LesseeDetail> {
 	}
 
 	@Override
-	public LesseeDetail process(Contract contract, WebElement moduleContainer) {
-		return this.process(contract.getLesseeNbr(), moduleContainer);
+	public InvestorDetail process(Contract contract, WebElement moduleContainer) {
+		return this.process(contract.getInvestorNbr(), moduleContainer);
 	}
+	/*
+	 * This method loads the Investor module container and provides the
+	 * InvestorDetail instance having all the sub section xpath and section
+	 * container element.
+	 * 
+	 * @see
+	 * com.nq.glb.automation.module.ModuleProcessor#process(java.lang.String,
+	 * org.openqa.selenium.WebElement)
+	 */
 
 	@Override
-	public LesseeDetail process(String id, WebElement moduleContainer) {
+	public InvestorDetail process(String id, WebElement moduleContainer) {
 
 		moduleContainer.findElement(By.xpath("div/a")).click();
 
 		SeleniumUtil.sleep(3);
-		LesseeDetail lesseeDetail = new LesseeDetail();
-		lesseeDetail.setLesseeNbr(id);
-		lesseeDetail.setSummary(new SiteElement(By.xpath("/html/body/div[3]/div[1]/div[1]/div/header")));
+		InvestorDetail investorDetail = new InvestorDetail();
+		investorDetail.setInvestorNbr(id);
+		investorDetail.setSummary(new SiteElement(By.xpath("/html/body/div[3]/div[1]/div[1]/div/header")));
 		Section section = new Section();
 
+		
 		section.setLink(By.linkText("Info"));
-		section.setContent(By.xpath("/html/body/div[3]/div[1]/div[2]/section"));
-		lesseeDetail.setQuote(section);
+		section.setContent(By.xpath("//*[@id='tab-1']/div/div[2]"));
+		investorDetail.setInfo(section);
 
 		section = new Section();
 		section.setLink(By.linkText("Comments"));
-		section.setContent(By.xpath("/html/body/div[3]/div[1]/div[2]/section"));
-		lesseeDetail.setContracts(section);
+		section.setContent(By.xpath("//*[@id='tab-2']"));
+		investorDetail.setComments(section);
 
 		section = new Section();
 		section.setLink(By.linkText("Quote"));
 		section.setContent(By.xpath("//*[@id='tab-3']"));
-		lesseeDetail.setComments(section);
+		investorDetail.setQuote(section);
 
 		section = new Section();
 		section.setLink(By.linkText("Contracts"));
 		section.setContent(By.xpath("//*[@id='tab-4']"));
-		lesseeDetail.setVendor(section);
+		investorDetail.setContracts(section);
 
 		section = new Section();
-		section.setLink(By.linkText("Investor"));
-		section.setContent(By.xpath("//*[@id='tab-6']/div[2]"));
-		lesseeDetail.setInvestor(section);
+		section.setLink(By.linkText("Lessee"));
+		section.setContent(By.xpath("//*[@id='tab-3']"));
+		investorDetail.setLessee(section);
 
 		section = new Section();
 		section.setLink(By.linkText("Vendor"));
 		section.setContent(By.xpath("//*[@id='tab-7']"));
-		lesseeDetail.setVendor(section);
+		investorDetail.setVendor(section);
 
-		section = new Section();
-		section.setLink(By.linkText("Vendor Broker"));
-		section.setContent(By.xpath("//*[@id='tab-7']"));
-		lesseeDetail.setVendorBroker(section);
 
-		return lesseeDetail;
+		return investorDetail;
 
 	}
 

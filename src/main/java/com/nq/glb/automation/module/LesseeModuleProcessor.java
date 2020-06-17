@@ -1,10 +1,10 @@
 package com.nq.glb.automation.module;
 
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.nq.glb.automation.model.Contract;
 import com.nq.glb.automation.model.SiteDetail;
@@ -14,13 +14,15 @@ import com.nq.glb.automation.model.web.SiteElement;
 import com.nq.glb.automation.utils.SeleniumUtil;
 
 /**
- * This Processor class is used to navigate and load the lessee module and
- * provides the methods to access section of lessee module.
+ * This Processor class is used to navigate and load the Lessee module and
+ * provides the methods to access section of Lessee module.
  * 
  * @author jswati
  *
  */
 public class LesseeModuleProcessor extends BaseModuleProcessor<LesseeDetail> {
+
+	private static final Logger logger = LoggerFactory.getLogger(LesseeModuleProcessor.class);
 
 	public LesseeModuleProcessor(WebDriver driver) {
 		super(driver);
@@ -38,9 +40,8 @@ public class LesseeModuleProcessor extends BaseModuleProcessor<LesseeDetail> {
 
 	@Override
 	public void navigate() {
-		// System.out.println("navigate to lessee module");
-		// this.driver.findElement(By.linkText("LESSEE")).click();
-		this.driver.findElement(By.xpath("/html/body/header/div[2]/nav/ul/li[2]/a")).click();
+		logger.debug("navigation operation started.");
+		this.driver.findElement(By.xpath("/html/body/header/div[2]/nav/ul/li[3]/a")).click();
 	}
 
 	@Override
@@ -50,14 +51,23 @@ public class LesseeModuleProcessor extends BaseModuleProcessor<LesseeDetail> {
 
 	@Override
 	public void exit() {
-		driver.close();
 	}
 
 	@Override
 	public LesseeDetail process(Contract contract, WebElement moduleContainer) {
+		logger.debug("process operation started.");
 		return this.process(contract.getLesseeNbr(), moduleContainer);
 	}
 
+	/*
+	 * This method loads the Lessee module container and provides the
+	 * LesseeDetail instance having all the sub section xpath and section
+	 * container element.
+	 * 
+	 * @see
+	 * com.nq.glb.automation.module.ModuleProcessor#process(java.lang.String,
+	 * org.openqa.selenium.WebElement)
+	 */
 	@Override
 	public LesseeDetail process(String id, WebElement moduleContainer) {
 
@@ -71,22 +81,22 @@ public class LesseeModuleProcessor extends BaseModuleProcessor<LesseeDetail> {
 
 		section.setLink(By.linkText("Info"));
 		section.setContent(By.xpath("/html/body/div[3]/div[1]/div[2]/section"));
-		lesseeDetail.setQuote(section);
+		lesseeDetail.setInfo(section);
 
 		section = new Section();
 		section.setLink(By.linkText("Comments"));
 		section.setContent(By.xpath("/html/body/div[3]/div[1]/div[2]/section"));
-		lesseeDetail.setContracts(section);
+		lesseeDetail.setComments(section);
 
 		section = new Section();
 		section.setLink(By.linkText("Quote"));
 		section.setContent(By.xpath("//*[@id='tab-3']"));
-		lesseeDetail.setComments(section);
+		lesseeDetail.setQuote(section);
 
 		section = new Section();
 		section.setLink(By.linkText("Contracts"));
 		section.setContent(By.xpath("//*[@id='tab-4']"));
-		lesseeDetail.setVendor(section);
+		lesseeDetail.setContracts(section);
 
 		section = new Section();
 		section.setLink(By.linkText("Investor"));

@@ -1,7 +1,5 @@
 package com.nq.glb.automation.module;
 
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -38,10 +36,9 @@ public class RateModuleProcessor extends BaseModuleProcessor<RateDetail> {
 
 	@Override
 	public void navigate() {
-		// System.out.println("navigate to rate module");
-		// this.driver.findElement(By.linkText("Rate")).click();
-		this.driver.findElement(By.xpath("/html/body/header/div[2]/nav/ul/li[1]/a")).click();
+		this.driver.findElement(By.xpath("/html/body/header/div[2]/nav/ul/li[2]/a")).click();
 	}
+	
 
 	@Override
 	public void process() {
@@ -50,7 +47,6 @@ public class RateModuleProcessor extends BaseModuleProcessor<RateDetail> {
 
 	@Override
 	public void exit() {
-		driver.close();
 	}
 
 	@Override
@@ -58,6 +54,14 @@ public class RateModuleProcessor extends BaseModuleProcessor<RateDetail> {
 		return this.process(contract.getContractId(), moduleContainer);
 	}
 
+	/*
+	 * This method loads the rate module container and provides the RateDetail
+	 * instance having all the sub section xpath and section container element.
+	 * 
+	 * @see
+	 * com.nq.glb.automation.module.ModuleProcessor#process(java.lang.String,
+	 * org.openqa.selenium.WebElement)
+	 */
 	@Override
 	public RateDetail process(String id, WebElement moduleContainer) {
 

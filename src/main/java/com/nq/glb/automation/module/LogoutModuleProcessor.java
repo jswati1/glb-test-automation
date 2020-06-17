@@ -30,10 +30,8 @@ public class LogoutModuleProcessor extends BaseModuleProcessor<SiteDetail> {
 
 	@Override
 	public void navigate() {
-		System.out.println("navigate to site url");
-		this.driver.get(siteDetail.getUrl());
-		SeleniumUtil.sleep(1);
-		this.driver.findElement(By.xpath("//*[@id='loginLink']")).click();
+		System.out.println("navigate to site Logout screen");
+		this.driver.findElement(By.xpath("//*[@id='logoutForm']/ul/li/a")).click();
 		SeleniumUtil.sleep(1);
 
 	}
@@ -41,17 +39,15 @@ public class LogoutModuleProcessor extends BaseModuleProcessor<SiteDetail> {
 	@Override
 	public void process() {
 		this.navigate();
-		System.out.println("initiating the login process");
-		this.driver.findElement(By.xpath("//*[@id='Email']")).sendKeys("qa@newsquantified.com");
-		this.driver.findElement(By.xpath("//*[@id='Password']")).sendKeys("jMTJdjNW%Qje!L4t");
-		this.driver.findElement(By.xpath("//*[@id='loginForm']/form/div[4]/div/input")).click();
+		System.out.println("initiating the logout process");
+		this.driver.findElement(By.xpath("//*[@id='users']/div/div/div[1]/div[1]/ul/li[9]/a")).click();
 		this.exit();
 	}
 
 	@Override
 	public void exit() {
 		SeleniumUtil.sleep(1);
-		System.out.println("successfully logged in and routed to home page.");
+		System.out.println("successfully logged out and routed to welcome page.");
 	}
 
 	@Override
