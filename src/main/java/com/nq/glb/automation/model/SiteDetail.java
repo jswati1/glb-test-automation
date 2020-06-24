@@ -3,7 +3,7 @@ package com.nq.glb.automation.model;
 public class SiteDetail {
 
 	private String url;
-	private Credential user;
+	private User user;
 
 	public SiteDetail(String url) {
 		super();
@@ -18,11 +18,17 @@ public class SiteDetail {
 		this.url = url;
 	}
 
-	public Credential getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(Credential user) {
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@Override
+	public String toString() {
+		return "SiteDetail [url=" + url + ", user=" + user + "]";
 	}
 
 }

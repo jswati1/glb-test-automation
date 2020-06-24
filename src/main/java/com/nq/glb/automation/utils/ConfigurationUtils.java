@@ -12,7 +12,7 @@ import com.nq.glb.automation.config.Configuration;
 
 /**
  * 
- * Utility to load the configurations from the rovided file.
+ * Utility to load the configurations from the provided file.
  * 
  * @author jswati
  *

@@ -41,9 +41,9 @@ public class LoginModuleProcessor extends BaseModuleProcessor<SiteDetail> {
 	@Override
 	public void process() {
 		this.navigate();
-		System.out.println("initiating the login process");
-		this.driver.findElement(By.xpath("//*[@id='Email']")).sendKeys("qa@newsquantified.com");
-		this.driver.findElement(By.xpath("//*[@id='Password']")).sendKeys("jMTJdjNW%Qje!L4t");
+		System.out.println("initiating the login process: "+siteDetail);
+		this.driver.findElement(By.xpath("//*[@id='Email']")).sendKeys(siteDetail.getUser().getUsername());
+		this.driver.findElement(By.xpath("//*[@id='Password']")).sendKeys(siteDetail.getUser().getPassword());
 		this.driver.findElement(By.xpath("//*[@id='loginForm']/form/div[4]/div/input")).click();
 		this.exit();
 	}

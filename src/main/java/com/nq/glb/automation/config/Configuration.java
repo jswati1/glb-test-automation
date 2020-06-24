@@ -1,6 +1,9 @@
 package com.nq.glb.automation.config;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.nq.glb.automation.model.User;
 
 /**
  * @author jswati
@@ -11,6 +14,7 @@ public class Configuration {
 	String name;
 	List<String> modules;
 	List<User> credentials;
+	String siteUrl;
 
 	public List<User> getCredentials() {
 		return credentials;
@@ -38,7 +42,23 @@ public class Configuration {
 
 	@Override
 	public String toString() {
-		return "Configuration [name=" + name + ", modules=" + modules + ", credentials=" + credentials + "]";
+		return "Configuration [name=" + name + ", modules=" + modules + ", credentials=" + credentials + ", siteUrl="
+				+ siteUrl + "]";
+	}
+
+	public String getSiteUrl() {
+		return siteUrl;
+	}
+
+	public void setSiteUrl(String siteUrl) {
+		this.siteUrl = siteUrl;
+	}
+
+	public void addCredential(User user) {
+		if (this.credentials == null) {
+			this.credentials = new ArrayList<>();
+		}
+		this.credentials.add(user);
 	}
 
 }

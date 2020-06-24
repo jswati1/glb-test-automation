@@ -6,23 +6,28 @@ package com.nq.glb.automation.model.web;
  */
 public class FilterDetail extends UtilitiesDetail {
 
-		private SiteElement summary;
-	
-	
-	public SiteElement getSummary() {
-		return summary;
+	private SiteElement header;
+	private SiteElement content;
+
+	public SiteElement getHeader() {
+		return header;
 	}
 
-	public void setSummary(SiteElement summary) {
-		this.summary = summary;
+	public void setHeader(SiteElement header) {
+		this.header = header;
 	}
-	
 
-	
+	public SiteElement getContent() {
+		return content;
+	}
+
+	public void setContent(SiteElement content) {
+		this.content = content;
+	}
 
 	@Override
 	public String toString() {
-		return "InvoicesDetail [summary=" + summary + "]";
+		return "FilterDetail [header=" + header + ", content=" + content + "]";
 	}
 
 }

@@ -26,17 +26,127 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.nq.glb.automation.config.AutomationTestConfig;
+import com.nq.glb.automation.config.BrowserDriverConfig;
 import com.nq.glb.automation.model.DriverType;
 import com.nq.glb.automation.model.web.SiteElement;
 
+/**
+ * 
+ * @author jswati
+ *
+ */
 public class SeleniumUtil {
 
 	private static final Logger logger = LoggerFactory.getLogger(SeleniumUtil.class);
-	// private static final String CHROME_PROFILE_DIR = "C:/chrome/test";
+
+	/**
+	 * @param browserConfig
+	 * @return
+	 */
+	public static WebDriver getDriver(BrowserDriverConfig browserConfig) {
+
+		logger.debug("Initialize the web driver for driver type {}", browserConfig.getDriverType());
+
+		WebDriver driver = null;
+		try {
+			switch (browserConfig.getDriverType()) {
+			case CHROME:
+
+				System.setProperty("webdriver.chrome.driver", browserConfig.getDriverPath());
+				final ChromeOptions chromeOptions = new ChromeOptions();
+				chromeOptions.addArguments("--no-sandbox");
+				chromeOptions.addArguments("enable-automation");
+				if (browserConfig.isHeadless()) {
+					chromeOptions.addArguments("--headless");
+				}
+				chromeOptions.addArguments("--window-size=1920,1080");
+				chromeOptions.addArguments("--disable-extensions");
+				chromeOptions.addArguments("--dns-prefetch-disable");
+				chromeOptions.addArguments("--disable-gpu");
+				chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+				chromeOptions.setCapability("chrome.verbose", browserConfig.isVerbose());
+				chromeOptions.addArguments("--disable-web-security");
+				chromeOptions.addArguments("--allow-running-insecure-content");
+				driver = new ChromeDriver(chromeOptions);
+				break;
+
+			case IE:
+
+				if (driver == null) {
+					System.setProperty("webdriver.ie.driver", browserConfig.getDriverPath());
+					driver = new InternetExplorerDriver();
+				}
+
+				break;
+
+			case FIREFOX:
+
+				if (driver == null) {
+
+					System.setProperty("webdriver.gecko.driver", browserConfig.getDriverPath());
+
+					File pathBinary = new File(browserConfig.getBinaryPath());
+					if (!pathBinary.exists()) {
+						pathBinary = new File(browserConfig.getBinaryPath());
+					}
+					final GeckoDriverService gecoService = new GeckoDriverService.Builder().build();
+					final FirefoxOptions options = new FirefoxOptions();
+					options.setHeadless(browserConfig.isHeadless());
+					if (browserConfig.isVerbose()) {
+						options.setLogLevel(FirefoxDriverLogLevel.DEBUG);
+					} else {
+						options.setLogLevel(FirefoxDriverLogLevel.ERROR);
+					}
+					options.setCapability("marionette", true);
+					driver = new FirefoxDriver(gecoService, options);
+
+				}
+				break;
+
+			default:
+
+				if (driver == null) {
+					// default is chrome.
+					System.setProperty("webdriver.chrome.driver", "C:\\tools\\chromedriver.exe");
+					final ChromeOptions bChromeOptions = new ChromeOptions();
+					bChromeOptions.addArguments("--no-sandbox");
+					bChromeOptions.addArguments("enable-automation");
+					// chromeOptions.addArguments("--headless");
+					bChromeOptions.addArguments("--window-size=1920,1080");
+					bChromeOptions.addArguments("--disable-extensions");
+					bChromeOptions.addArguments("--dns-prefetch-disable");
+					bChromeOptions.addArguments("--disable-gpu");
+					bChromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+					bChromeOptions.setCapability("chrome.verbose", true);
+					// disable logging
+					// disable the web security
+					bChromeOptions.addArguments("--disable-web-security");
+					bChromeOptions.addArguments("--allow-running-insecure-content");
+					driver = new ChromeDriver(bChromeOptions);
+
+				}
+				break;
+			}
+
+		} catch (final UnreachableBrowserException ex) {
+			logger.error("UnreachableBrowserException :{}", ex);
+		} catch (final Exception ex) {
+			logger.error("Exception while initializing :{}", ex);
+		}
+
+		logger.debug("driver is initialized {}", (driver != null));
+		driver.manage().window().maximize();
+		return driver;
+	}
 
 	public static WebDriver getDriver(DriverType driverType) {
 		logger.debug("Initialize the web driver for driver type {}", driverType);
+
+		AutomationTestConfig configs = AutomationTestConfig.automationContext();
+		logger.info(configs.getTestConfig().toString());
 		WebDriver driver = null;
+
 		try {
 			switch (driverType) {
 			case CHROME:
@@ -45,7 +155,7 @@ public class SeleniumUtil {
 				final ChromeOptions chromeOptions = new ChromeOptions();
 				chromeOptions.addArguments("--no-sandbox");
 				chromeOptions.addArguments("enable-automation");
-			//	 chromeOptions.addArguments("--headless");
+				// chromeOptions.addArguments("--headless");
 				chromeOptions.addArguments("--window-size=1920,1080");
 				chromeOptions.addArguments("--disable-extensions");
 				chromeOptions.addArguments("--dns-prefetch-disable");
@@ -101,22 +211,6 @@ public class SeleniumUtil {
 				}
 				break;
 
-			default:
-
-				if (driver == null) {
-					// System.setProperty("webdriver.firefox.bin","C:\\Program
-					// Files (x86)\\Mozilla Firefox\\firefox.exe");
-					System.setProperty("webdriver.gecko.driver",
-							"C:\\tools\\geckodriver-v0.24.0-win64\\geckodriver.exe");
-					final FirefoxOptions options = new FirefoxOptions();
-					// options.setHeadless(true);
-					options.setLogLevel(FirefoxDriverLogLevel.FATAL);
-					options.setCapability("marionette", false);
-					// driver = new FirefoxDriver(options);
-					driver = new FirefoxDriver();
-
-				}
-				break;
 			}
 
 		} catch (final UnreachableBrowserException ex) {
@@ -218,24 +312,6 @@ public class SeleniumUtil {
 
 		return null;
 	}
-
-	// public static WebElement IsElementFound(WebDriver d,By elementValue, int
-	// waitTime)
-	// {
-	// try{
-	// WebElement myDynamicElement = (new WebDriverWait(d,
-	// waitTime)).until(ExpectedConditions.presenceOfElementLocated(elementValue));
-	// elementFound = checkWebElementExistsOrNot(d,elementValue);
-	// return myDynamicElement;
-	// }
-	// catch(Exception e)
-	// {
-	// System.out.println(e.getMessage());
-	// e.printStackTrace();
-	// System.out.println("Could not load the element");
-	// closeDriver(d);
-	// System.exit(-1);
-	// }
 
 	// Driver closing
 	public static void closeDriver(WebDriver driver) {

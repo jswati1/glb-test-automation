@@ -20,7 +20,7 @@ import com.nq.glb.automation.utils.SeleniumUtil;
 
 /**
  * This Processor class is used to navigate and load the Docset module and
- * provides the methods to access section of UTILITY module.
+ * provides the methods to access section of Docset (UTILITY) module.
  * 
  * @author jswati
  *
@@ -28,7 +28,7 @@ import com.nq.glb.automation.utils.SeleniumUtil;
 
 public class DocsetModuleProcessor extends UtilitiesModuleProcessor<DocsetDetail> {
 
-	private static final Logger logger = LoggerFactory.getLogger(InvoicesModuleProcessor.class);
+	private static final Logger logger = LoggerFactory.getLogger(DocsetModuleProcessor.class);
 
 	public DocsetModuleProcessor(WebDriver driver) {
 		super(driver);
@@ -48,7 +48,6 @@ public class DocsetModuleProcessor extends UtilitiesModuleProcessor<DocsetDetail
 	public void navigate() {
 		
 		final WebElement utilities = SeleniumUtil.IsElementFound(driver,(By.xpath("/html/body/header/div[2]/nav/ul/li[8]/a")));
-	//	this.driver.findElement(By.xpath("/html/body/header/div[2]/nav/ul/li[8]/div/div[2]/a[3]")).click();
 		 Actions action = new Actions(this.driver);
 		action.moveToElement(utilities).click().perform();
 	}
@@ -91,9 +90,6 @@ return null;
 	@Override
 	public DocsetDetail loadUtilities() {
 	
-		//moduleContainer.findElement(By.xpath("div/a")).click();
-
-		//SeleniumUtil.sleep(3);
 		DocsetDetail docsetDetail = new DocsetDetail();
 		docsetDetail.setRoot(new SiteElement(By.xpath("/html/body/div[3]/div/div[2]/div[2]/div[1]/ul")));	
 				

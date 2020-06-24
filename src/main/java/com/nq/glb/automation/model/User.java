@@ -1,4 +1,4 @@
-package com.nq.glb.automation.config;
+package com.nq.glb.automation.model;
 
 /**
  * @author jswati
