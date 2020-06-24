@@ -7,7 +7,6 @@ import static org.testng.Assert.assertTrue;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -15,15 +14,11 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.nq.glb.automation.model.Contract;
-import com.nq.glb.automation.model.DriverType;
-import com.nq.glb.automation.model.SiteDetail;
 import com.nq.glb.automation.model.web.RateDetail;
-import com.nq.glb.automation.module.LoginModuleProcessor;
 import com.nq.glb.automation.module.RateModuleProcessor;
 import com.nq.glb.automation.utils.SeleniumUtil;
 
@@ -34,14 +29,10 @@ import com.nq.glb.automation.utils.SeleniumUtil;
  * @author jswati
  *
  */
-public class RateModuleTest {
-
-	private WebDriver driver;
+public class RateModuleTest extends BaseTestSuite {
 
 	private RateModuleProcessor rateProcessor;
 
-	
-	
 	/**
 	 * This test case is written to validate if the logged in user search for
 	 * the valid contract Id and he should get atleast one contract in the
@@ -85,6 +76,7 @@ public class RateModuleTest {
 		contractDetails.getSummary().setWebElement(driver.findElement(contractDetails.getSummary().getXpath()));
 		assertNotNull(contractDetails.getSummary().getWebElement());
 	}
+
 	/**
 	 * This test case is written to validate if the logged in user search for
 	 * the valid contract Id and selects the contract from search result, he
@@ -105,6 +97,7 @@ public class RateModuleTest {
 				.findElement(By.xpath("div[2]/div[1]/ul/li[1]/span"));
 		assertNotNull(quoteStatus);
 	}
+
 	/**
 	 * This test case is written to validate if the logged in user search for
 	 * the valid contract Id and selects the contract from search result, he
@@ -146,8 +139,8 @@ public class RateModuleTest {
 
 	/**
 	 * This test case is written to validate if the logged in user should be
-	 * able to view the contract section availablility and he should be able to see
-	 * details under quote section.
+	 * able to view the contract section availability and he should be able to
+	 * see details under quote section.
 	 */
 
 	@Test
@@ -165,11 +158,12 @@ public class RateModuleTest {
 	}
 
 	/**
-	 * Test case= Check the status in the contract Tab -is it in a correct tab
-	 * or not
+	 * This test case is written to validate if the logged in user should be
+	 * able to view the Contracts section availability and user should be able
+	 * to see details under Contracts section of Rate Module
 	 */
 	@Test
-	public void testContractStatus() {
+	public void rateModuleValidateContractSectionStatus() {
 
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
@@ -180,15 +174,16 @@ public class RateModuleTest {
 		assertNotNull(contractDetails);
 		rateProcessor.loadSection(contractDetails.getContracts());
 		assertNotNull(contractDetails.getContracts().getContent().getWebElement());
-		WebElement contractStatus = this.driver.findElement(By.xpath("//*[@id='main-tab']/div[2]/div[1]/div[1]"));
+		WebElement contractStatus = driver.findElement(By.xpath("//*[@id='main-tab']/div[2]/div[1]/div[1]"));
 		assertNotNull(contractStatus);
 	}
 
 	/**
-	 * user is clicking on Comment tab under Rate quote
+	 * This test case is written to validate if the logged in user should be
+	 * able to navigate the Comment section under Rate Module
 	 */
 	@Test
-	public void commentsModule() {
+	public void rateModuleNavigateCommentsSection() {
 
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
@@ -202,10 +197,12 @@ public class RateModuleTest {
 	}
 
 	/**
-	 * Check the status in the Comment tab
+	 * This test case is written to validate if the logged in user should be
+	 * able to view the Comment section availability and user should be able to
+	 * see details under Comment section of Rate Module
 	 */
 	@Test
-	public void commentsStatus() {
+	public void rateModuleValidateCommentsSectioStatus() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -215,15 +212,16 @@ public class RateModuleTest {
 		assertNotNull(contractDetails);
 		rateProcessor.loadSection(contractDetails.getComments());
 		assertNotNull(contractDetails.getComments().getContent().getWebElement());
-		WebElement commentStatus = this.driver.findElement(By.xpath("//*[@id='main-tab']/div/div/div[1]"));
+		WebElement commentStatus = driver.findElement(By.xpath("//*[@id='main-tab']/div/div/div[1]"));
 		assertNotNull(commentStatus);
 	}
 
 	/**
-	 * Click on the Equipment tab
+	 * This test case is written to validate if the logged in user should be
+	 * able to navigate the Equipment section under Rate Module
 	 */
 	@Test
-	public void equipmentModule() {
+	public void rateModuleNavigateEquipmentSection() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -237,10 +235,12 @@ public class RateModuleTest {
 	}
 
 	/**
-	 * Check the status in the Equipment status
+	 * This test case is written to validate if the logged in user should be
+	 * able to view the Equipment section availability and user should be able
+	 * to see details under Equipment section of Rate Module
 	 */
 	@Test
-	public void equipmentStatus() {
+	public void rateModuleValidateEquipmentSectionStatus() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -249,16 +249,17 @@ public class RateModuleTest {
 		assertNotNull(contractDetails);
 		rateProcessor.loadSection(contractDetails.getEquipment());
 		assertNotNull(contractDetails.getEquipment().getContent().getWebElement());
-		WebElement equipmentStatus = this.driver
+		WebElement equipmentStatus = driver
 				.findElement(By.xpath("//*[@id='main-tab']/div[1]/div[2]/div/div[1]/div[1]"));
 		assertNotNull(equipmentStatus);
 	}
 
 	/**
-	 * Click on Document tab
+	 * This test case is written to validate if the logged in user should be
+	 * able to navigate the Documents section under Rate Module
 	 */
 	@Test
-	public void documentsModule() {
+	public void rateModuleNavigateDocumentsSection() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -270,10 +271,12 @@ public class RateModuleTest {
 	}
 
 	/**
-	 * check the status in the Document tab -is user in the correct tab or not
+	 * This test case is written to validate if the logged in user should be
+	 * able to view the Document section availability and user should be able to
+	 * see details under Document section of Rate Module
 	 */
 	@Test
-	public void documentsStatus() {
+	public void rateModuleValidateDocumentsSectionStatus() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -282,16 +285,17 @@ public class RateModuleTest {
 		assertNotNull(contractDetails);
 		rateProcessor.loadSection(contractDetails.getDocuments());
 		assertNotNull(contractDetails.getDocuments().getContent().getWebElement());
-		WebElement documentStatus = this.driver.findElement(By.xpath("//*[@id='main-tab']/div[1]/div[2]/div[1]/h5"));
+		WebElement documentStatus = driver.findElement(By.xpath("//*[@id='main-tab']/div[1]/div[2]/div[1]/h5"));
 		assertNotNull(documentStatus);
 
 	}
 
 	/**
-	 * the test case is written to clicking the Lessee tab
+	 * This test case is written to validate if the logged in user should be
+	 * able to navigate the Lessee section under Rate Module
 	 */
 	@Test
-	public void lesseeModule() {
+	public void rateModuleNavigateLesseeSection() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -303,9 +307,11 @@ public class RateModuleTest {
 	}
 
 	/**
-	 * check the status in the Lessee tab -is user in the correct tab or not
+	 * This test case is written to validate if the logged in user should be
+	 * able to view the Lessee section availability and user should be able to
+	 * see details under Lessee section of Rate Module
 	 */
-	public void LesseeStatus() {
+	public void rateModuleValidateLesseeSetionStatus() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -314,15 +320,16 @@ public class RateModuleTest {
 		assertNotNull(contractDetails);
 		rateProcessor.loadSection(contractDetails.getLessee());
 		assertNotNull(contractDetails.getLessee().getContent().getWebElement());
-		WebElement lesseStatus = this.driver.findElement(By.xpath("//*[@id='main-tab']/div[1]/div[2]/div[1]/h5"));
+		WebElement lesseStatus = driver.findElement(By.xpath("//*[@id='main-tab']/div[1]/div[2]/div[1]/h5"));
 		assertNotNull(lesseStatus);
 	}
 
 	/**
-	 * user is clicking to Vendortab under Ratequote
+	 * This test case is written to validate if the logged in user should be
+	 * able to navigate the Vendor section under Rate Module
 	 */
 	@Test
-	public void vendorModule() {
+	public void rateModuleNavigateVendorSection() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -334,10 +341,12 @@ public class RateModuleTest {
 	}
 
 	/**
-	 * check the status in the Vendor tab -is user in the correct tab or not
+	 * This test case is written to validate if the logged in user should be
+	 * able to view the Vendor section availability and user should be able to
+	 * see details under Vendor section of Rate Module
 	 */
 	@Test
-	public void vendorStatus() {
+	public void rateModuleValidateVendorSectionStatus() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -346,17 +355,18 @@ public class RateModuleTest {
 		assertNotNull(contractDetails);
 		rateProcessor.loadSection(contractDetails.getVendor());
 		assertNotNull(contractDetails.getVendor().getContent().getWebElement());
-		WebElement vendorstatus = this.driver
+		WebElement vendorstatus = driver
 				.findElement(By.xpath("//*[@id='main-tab']/div/div[2]/div[2]/div[1]/div[1]/h5"));
 		assertNotNull(vendorstatus);
 
 	}
 
 	/**
-	 * User is clicking on VendorBroker tab
+	 * This test case is written to validate if the logged in user should be
+	 * able to navigate the Vendor-Broker section under Rate Module
 	 */
 	@Test
-	public void vendorBroker() {
+	public void rateModuleNavigateVendorBrokerSection() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -368,11 +378,12 @@ public class RateModuleTest {
 	}
 
 	/**
-	 * check the status in the VendorBroker tab -is user in the correct tab or
-	 * not
+	 * This test case is written to validate if the logged in user should be
+	 * able to view the Vendor-Broker section availability and user should be
+	 * able to see details under Vendor-Broker section of Rate Module
 	 */
 	@Test
-	public void vendorBrokerStatus() {
+	public void rateModuleValidateVendorBrokerSectionStatus() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -384,11 +395,11 @@ public class RateModuleTest {
 	}
 
 	/**
-	 * The test case is written to validate that User is clicking on Investor
-	 * tab
+	 * This test case is written to validate if the logged in user should be
+	 * able to navigate the Investor section under Rate Module
 	 */
 	@Test
-	public void investorModule() {
+	public void rateModuleNavigateInvestorSection() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -400,12 +411,13 @@ public class RateModuleTest {
 	}
 
 	/**
-	 * validating the status is user in investor status or not
-	 * 
+	 * This test case is written to validate if the logged in user should be
+	 * able to view the Investor section availability and user should be able to
+	 * see details under Investor section of Rate Module
 	 */
 
 	@Test
-	public void investorStatus() {
+	public void rateModuleValidateInvestorSectionStatus() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -414,17 +426,17 @@ public class RateModuleTest {
 		assertNotNull(contractDetails);
 		rateProcessor.loadSection(contractDetails.getInvestor());
 		assertNotNull(contractDetails.getInvestor().getContent().getWebElement());
-		WebElement investorstatus = this.driver.findElement(By.xpath("//*[@id='main-tab']/div[1]/div[2]/div[1]/h5"));
+		WebElement investorstatus = driver.findElement(By.xpath("//*[@id='main-tab']/div[1]/div[2]/div[1]/h5"));
 		assertNotNull(investorstatus);
 	}
 
 	/**
-	 * The test case is written to validate that User is clicking on
-	 * InvestorBroker tab
+	 * This test case is written to validate if the logged in user should be
+	 * able to navigate the Investor-Broker section under Rate Module
 	 */
 
 	@Test
-	public void investorBrokerModule() {
+	public void rateModuleNavigateInvestorBrokerSection() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -436,11 +448,12 @@ public class RateModuleTest {
 	}
 
 	/**
-	 * validating the status is user in investor brokerstatus or not
-	 * 
+	 * This test case is written to validate if the logged in user should be
+	 * able to view the Investor-Broker section availability and user should be
+	 * able to see details under Investor=Broker section of Rate Module
 	 */
 	@Test
-	public void investorBrokerStatus() {
+	public void rateModuleValidateInvestorBrokerStatus() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -449,16 +462,17 @@ public class RateModuleTest {
 		assertNotNull(contractDetails);
 		rateProcessor.loadSection(contractDetails.getInvestorBroker());
 		assertNotNull(contractDetails.getInvestorBroker().getContent().getWebElement());
-		WebElement investorbrokerstatus = this.driver
+		WebElement investorbrokerstatus = driver
 				.findElement(By.xpath("//*[@id='main-tab']/div/div[2]/div[2]/div[1]/div[1]/ul/li[1]"));
 		assertNotNull(investorbrokerstatus);
 	}
 
 	/**
-	 * The test case is written to validate that User is clicking on Rec/dis tab
+	 * This test case is written to validate if the logged in user should be
+	 * able to navigate the Rec-Dis section under Rate Module
 	 */
 	@Test
-	public void recdisModule() {
+	public void rateModuleNavigateRec_DisSection() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -470,11 +484,12 @@ public class RateModuleTest {
 	}
 
 	/**
-	 * validating the status is user in Rec/dis status or not
-	 * 
+	 * This test case is written to validate if the logged in user should be
+	 * able to view the Rec-Dis section availability and user should be able to
+	 * see details under Rec-Dis section of Rate Module
 	 */
 	@Test
-	public void recdisStatus() {
+	public void rateModuleValidateRec_DisSectionStatus() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -483,15 +498,16 @@ public class RateModuleTest {
 		assertNotNull(contractDetails);
 		rateProcessor.loadSection(contractDetails.getRecDis());
 		assertNotNull(contractDetails.getRecDis().getContent().getWebElement());
-		WebElement recdisstatus = this.driver.findElement(By.xpath("//*[@id='equipmentTable']/thead/tr/th[2]"));
+		WebElement recdisstatus = driver.findElement(By.xpath("//*[@id='equipmentTable']/thead/tr/th[2]"));
 		assertNotNull(recdisstatus);
 	}
 
 	/**
-	 * The test case is written to validate that User is clicking on state tab
+	 * This test case is written to validate if the logged in user should be
+	 * able to navigate the State section under Rate Module
 	 */
 	@Test
-	public void stateModule() {
+	public void rateModuleNavigateStateSection() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -503,11 +519,12 @@ public class RateModuleTest {
 	}
 
 	/**
-	 * validating the status is user in state status or not
-	 * 
+	 * This test case is written to validate if the logged in user should be
+	 * able to view the State section availability and user should be able to
+	 * see details under State section of Rate Module
 	 */
 	@Test
-	public void stateStatus() {
+	public void rateModuleValidateStateSectionStatus() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -516,12 +533,16 @@ public class RateModuleTest {
 		assertNotNull(contractDetails);
 		rateProcessor.loadSection(contractDetails.getState());
 		assertNotNull(contractDetails.getState().getContent().getWebElement());
-		WebElement statestatus = this.driver.findElement(By.xpath("//*[@id='main-tab']/div/div[2]/div[4]/ul/li[1]"));
+		WebElement statestatus = driver.findElement(By.xpath("//*[@id='main-tab']/div/div[2]/div[4]/ul/li[1]"));
 		assertNotNull(statestatus);
 	}
 
+	/**
+	 * This test case is written to validate if the logged in user should be
+	 * able to navigate the Invoice Schedule section under Rate Module
+	 */
 	@Test
-	public void invoiceschedulerModule() {
+	public void rateModuleNavigateInvoiceScheduleSection() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -533,12 +554,13 @@ public class RateModuleTest {
 	}
 
 	/**
-	 * validating the status is user in invoice schedule status or not
-	 * 
+	 * This test case is written to validate if the logged in user should be
+	 * able to view the Invoice Schedule section availability and user should be
+	 * able to see details under Invoice Schedule section of Rate Module
 	 */
 
 	@Test
-	public void invoicescheduleStatus() {
+	public void rateModuleValidateInvoiceScheduleStatus() {
 		String contractId = "22244";
 		List<WebElement> contracts = rateProcessor.search(contractId);
 		assertNotNull(contracts);
@@ -547,8 +569,7 @@ public class RateModuleTest {
 		assertNotNull(contractDetails);
 		rateProcessor.loadSection(contractDetails.getInvoiceSchedule());
 		assertNotNull(contractDetails.getInvoiceSchedule().getContent().getWebElement());
-		WebElement invoiceschestatus = this.driver
-				.findElement(By.xpath("//*[@id='tab-11']/div[1]/div[2]/div[1]/ul/li"));
+		WebElement invoiceschestatus = driver.findElement(By.xpath("//*[@id='tab-11']/div[1]/div[2]/div[1]/ul/li"));
 		assertNotNull(invoiceschestatus);
 	}
 
@@ -567,12 +588,15 @@ public class RateModuleTest {
 		System.out.println(contractDetails);
 		assertNotNull(contractDetails);
 		Contract contract = rateProcessor.getContract(contractDetails);
-		System.out.println("Contract Information: " + contract);
+		// System.out.println("Contract Information: " + contract);
 	}
 
 	@BeforeMethod
 	public void beforeMethod() {
 		rateProcessor.navigate();
+		if (contract == null) {
+			loadTestData();
+		}
 	}
 
 	@AfterMethod
@@ -580,8 +604,10 @@ public class RateModuleTest {
 		SeleniumUtil.switchToParentWindow(driver);
 	}
 
-	@BeforeClass
+	@BeforeClass()
 	public void beforeClass() {
+		this.openSite();
+		rateProcessor = new RateModuleProcessor(driver);
 	}
 
 	@AfterClass
@@ -598,20 +624,12 @@ public class RateModuleTest {
 
 	}
 
-	@BeforeSuite
-	public void beforeSuite() {
-		driver = SeleniumUtil.getDriver(DriverType.CHROME);
-		LoginModuleProcessor loginProcessor = new LoginModuleProcessor(driver);
-		SiteDetail siteDetail = new SiteDetail("https://glc-beta.newsquantified.com/");
-		loginProcessor.setSiteDetail(siteDetail);
-		loginProcessor.process();
-		rateProcessor = new RateModuleProcessor(driver);
-
-	}
-
 	@AfterSuite
 	public void afterSuite() {
-		SeleniumUtil.closeDriver(driver);
+		// LogoutModuleProcessor logoutProcessor = new
+		// LogoutModuleProcessor(driver);
+		// logoutProcessor.process();
+		this.closeSite();
 	}
 
 }
