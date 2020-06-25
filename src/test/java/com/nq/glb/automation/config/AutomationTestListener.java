@@ -136,8 +136,8 @@ public class AutomationTestListener implements ITestListener {
 			} else {
 				logger.info("report file already exists {} ", path);
 			}
-			reportsPath=".";
-			reporter = new ExtentHtmlReporter(reportsPath + "/reports/glb_automation.html");
+			//reportsPath=".";
+			reporter = new ExtentHtmlReporter(reportsPath + "/glb_automation.html");
 			reporter.config().setChartVisibilityOnOpen(true);
 			reporter.config().setDocumentTitle("GLB Automation Test Report");
 			reporter.config().setReportName("GLB Automation Test Results");
