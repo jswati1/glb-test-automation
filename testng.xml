@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="GLB Automation Test Suite">
+	<parameter name="config-file-path" value="" />
+	<listeners>
+		<listener class-name="org.uncommons.reportng.HTMLReporter" />
+		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+		<listener class-name="com.nq.glb.automation.config.AutomationTestListener" />
+	</listeners>
+	<test name="Regression Tests" preserve-order="true">
+		<classes>
+			<class name="com.nq.glb.automation.test.suite.InvoicesModuleTest" />
+			<class name="com.nq.glb.automation.test.suite.FilterModuleTest" />
+			<class name="com.nq.glb.automation.test.suite.SalesReportTest" />
+			<class name="com.nq.glb.automation.test.suite.LesseeModuleTest" />
+			<class name="com.nq.glb.automation.test.suite.ManagementReportTest" />
+			<class name="com.nq.glb.automation.test.suite.ContractStatusReportTest" />
+			<class name="com.nq.glb.automation.test.suite.DocsetModuleTest" />
+			<class name="com.nq.glb.automation.test.suite.InvestorModuleTest" />
+			<class name="com.nq.glb.automation.test.suite.RateModuleTest" />
+			<class name="com.nq.glb.automation.test.suite.VendorModuleTest" />
+			<class name="com.nq.glb.automation.test.suite.StateModuleTest" />
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->
